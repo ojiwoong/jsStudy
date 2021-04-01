@@ -3,7 +3,7 @@
 // subprogram 이라고도 불리며, 여러번 재사용 가능
 // 한가지의 일이나 특정 값을 계산하는데 사용
 
-// 1. Function 정의
+// 1. Function declaration(함수 선언)
 // function name(param1, param2) {body... return;}
 // 하나의 function은 하나의 일만 하도록 구현
 // 함수 네이밍은 명령 또는 동사 형태로
@@ -182,7 +182,9 @@ function upgradeUser(user) {
 // Function의 파라미터로 전달 가능
 // Function을 return 할 수도 있음
 
-// 1. Function expression
+// 1. Function expression (함수표현식)
+// function declaration(함수 선언)은 선언전에 호출할 수 있음 (hoisted)
+// function expression(함수 표현식)은 정의하기 전에는 사용할 수 없음
 const print = function () {
   // anonymous function (익명함수)
   console.log('print');
@@ -193,3 +195,103 @@ const printAgain = print;
 printAgain();
 const sumAgain = sum;
 console.log(sumAgain(1, 3));
+
+// 2. Callback function using function expression
+function randomQuiz(answer, printYes, printNo) {
+  if (answer === 'love you') {
+    printYes();
+  } else {
+    printNo();
+  }
+}
+
+const printYes = function () {
+  console.log('yes!');
+};
+
+const printNo = function print() {
+  console.log('no!');
+};
+
+randomQuiz('wrong', printYes, printNo);
+randomQuiz('love you', printYes, printNo);
+
+// Arrow function (화살표 함수)
+// always anonymous (항상 익명)
+// # 기존 function expression
+const simplePrint = function () {
+  console.log('simplePrint!');
+};
+
+// # Arrow function을 사용한 function expression
+const simplePrint2 = () => console.log('simplePrint!');
+const add = (a, b) => a + b;
+const simpleMultiply = (a, b) => {
+  return a * b;
+};
+
+// IIFE : Immediately Invoked Function Expression (즉시 실행 함수 표현)
+// 함수 선언과 동시에 즉시 실행해서 확인하고 싶을 때 사용
+(function hello() {
+  console.log('IIFE');
+})();
+
+// quiz
+// function calculate(command, a, b)
+// command : add, substract, divide, multiply, remainder
+
+// # function declartion
+function calculate(command, a, b) {
+  switch (command) {
+    case 'add':
+      return a + b;
+    case 'substract':
+      return a - b;
+    case 'divide':
+      return a / b;
+    case 'multiply':
+      return a * b;
+    case 'remainder':
+      return a % b;
+    default:
+      return 'Incorrect command';
+  }
+}
+// # fucntion express
+const calculate2 = function (command, a, b) {
+  switch (command) {
+    case 'add':
+      return a + b;
+    case 'substract':
+      return a - b;
+    case 'divide':
+      return a / b;
+    case 'multiply':
+      return a * b;
+    case 'remainder':
+      return a % b;
+    default:
+      return 'Incorrect command';
+  }
+};
+// # function express (arrow function .ver)
+const calculate3 = (command, a, b) => {
+  switch (command) {
+    case 'add':
+      return a + b;
+    case 'substract':
+      return a - b;
+    case 'divide':
+      return a / b;
+    case 'multiply':
+      return a * b;
+    case 'remainder':
+      return a % b;
+    default:
+      return 'Incorrect command';
+  }
+};
+
+calculate('add', 2, 3);
+calculate2('add', 2, 3);
+calculate3('add', 2, 3);
